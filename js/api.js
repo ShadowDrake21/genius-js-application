@@ -1,6 +1,7 @@
 import { GENIUS_BASE_URL } from '../constants.js';
 import { CLIENT_ACCESS_TOKEN } from '../environment.js';
-import { renderSong } from './render.js';
+import { renderArtist } from './renderArtist.js';
+import { renderSong } from './renderSong.js';
 
 export const getSong = async (id) => {
   try {
@@ -24,7 +25,26 @@ export const getArtist = async (id) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        const artistSongs = getArtistSongs(id);
+        artistSongs.then((songs) => {
+          renderArtist(data, songs);
+        });
+      });
+  } catch (err) {
+    console.log(err.toJSON());
+  }
+};
+
+export const getArtistSongs = async (id, numberOfSongs = 10) => {
+  try {
+    return fetch(
+      `${GENIUS_BASE_URL}artists/${id}/songs?access_token=${CLIENT_ACCESS_TOKEN}&per_page=${numberOfSongs}&sort=popularity`
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        return data;
       });
   } catch (err) {
     console.log(err.toJSON());
