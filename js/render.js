@@ -1,88 +1,98 @@
 export const renderSong = (data) => {
   const receivedSong = data.response.song;
-  const container = document.querySelector('#container');
+  const workingArea = document.querySelector('#workingArea');
   console.log('data', receivedSong);
-  // container.innerHTML = JSON.stringify(data.response.song);
+
+  const createArtistSection = (titleText, artists) => {
+    const section = document.createElement('div');
+    section.classList.add('section');
+    const sectionTitle = document.createElement('h2');
+    sectionTitle.textContent = titleText;
+    sectionTitle.classList.add('section-title');
+    section.append(sectionTitle);
+
+    const sectionInner = document.createElement('div');
+    const artistsIndividualClass = titleText.replace(/\s+/g, '-').toLowerCase();
+    sectionInner.classList.add('section-inner', artistsIndividualClass);
+
+    artists.forEach((artist) => {
+      const artistDiv = document.createElement('a');
+      artistDiv.classList.add('artist-item');
+      artistDiv.href = artist.url;
+      artistDiv.setAttribute('target', '_blank');
+      const artistImage = document.createElement('img');
+      artistImage.src = artist.image_url;
+      artistImage.classList.add('artist-item__img');
+      const artistName = document.createElement('h3');
+      artistName.innerText = artist.name;
+      artistName.classList.add('artist-item__name');
+      artistDiv.append(artistImage, artistName);
+      sectionInner.appendChild(artistDiv);
+    });
+
+    section.appendChild(sectionInner);
+
+    return section;
+  };
 
   const title = document.createElement('h1');
-  title.innerText = receivedSong.full_title;
+  title.classList.add('song-title');
+  title.textContent = receivedSong.title;
 
   const artistNames = document.createElement('p');
-  artistNames.innerText = receivedSong.artist_names;
+  artistNames.classList.add('artist-names', 'bold-text');
+  artistNames.textContent = 'By ' + receivedSong.artist_names;
 
+  const topPart = document.createElement('div');
+  topPart.classList.add('song-top');
+
+  const songImageWrapper = document.createElement('div');
+  songImageWrapper.classList.add('song-image__wrapper');
   const songImage = document.createElement('img');
-  songImage.src = receivedSong.header_image_url;
+  songImage.classList.add('song-image');
+  songImage.src = receivedSong.song_art_image_url;
 
-  const primaryArtists = document.createElement('div');
+  songImageWrapper.appendChild(songImage);
 
-  const primaryArtistsTitle = document.createElement('h2');
-  primaryArtistsTitle.textContent = 'Primary Artists';
-  primaryArtists.append(primaryArtistsTitle);
+  const primaryArtists = createArtistSection(
+    'Primary Artists',
+    receivedSong.primary_artists
+  );
 
-  for (const primaryArtist of receivedSong.primary_artists) {
-    const primaryArtistDiv = document.createElement('div');
-    const primaryArtistImage = document.createElement('img');
-    primaryArtistImage.src = primaryArtist.header_image_url;
-    const primaryArtistName = document.createElement('h3');
-    primaryArtistName.innerText = primaryArtist.name;
-    primaryArtistDiv.append(primaryArtistImage, primaryArtistName);
-    primaryArtists.appendChild(primaryArtistDiv);
-  }
+  primaryArtists.classList.add('primary-artists__list');
 
-  let featuredArtists;
-  if (receivedSong.featured_artists) {
-    featuredArtists = document.createElement('div');
+  topPart.appendChild(songImageWrapper);
+  topPart.appendChild(primaryArtists);
 
-    const featuredArtistsTitle = document.createElement('h2');
-    featuredArtistsTitle.textContent = 'Featured Artists';
-    featuredArtists.append(featuredArtistsTitle);
+  const songInfoWrapper = document.createElement('div');
+  songInfoWrapper.classList.add('song-info__wrapper');
 
-    for (const featuredArtist of receivedSong.featured_artists) {
-      const featuredArtistDiv = document.createElement('div');
-      const featuredArtistImage = document.createElement('img');
-      featuredArtistImage.src = featuredArtist.header_image_url;
-      const featuredArtistName = document.createElement('h3');
-      featuredArtistName.innerText = featuredArtist.name;
-      featuredArtistDiv.append(featuredArtistImage, featuredArtistName);
-      featuredArtists.appendChild(featuredArtistDiv);
-    }
+  let releaseDate;
+  if (receivedSong.release_date_for_display) {
+    releaseDate = document.createElement('p');
+    releaseDate.classList.add('bold-text');
+    releaseDate.innerHTML =
+      'Release date:' + receivedSong.release_date_for_display;
+
+    songInfoWrapper.appendChild(releaseDate);
   }
 
   const language = document.createElement('p');
-  language.innerText = 'Language: ' + receivedSong.language;
-
-  let album;
-  if (receivedSong.album) {
-    album = document.createElement('div');
-
-    const albumTitle = document.createElement('h2');
-    albumTitle.textContent = 'Album';
-    album.append(albumTitle);
-
-    const albumItem = document.createElement('a');
-    albumItem.setAttribute('target', '_blank');
-    albumItem.href = 'https://genius.com/albums/Sanah/Uczta';
-    albumItem.innerHTML = `<img src="${receivedSong.album.cover_art_url}"/>
-  <h3>${receivedSong.album.name}</h3>
-  <div>
-  <h4>Artist</h4>
-  <img src="${receivedSong.album.artist.image_url}"/>
-  <p>${receivedSong.album.artist.name}</p>
-  </div>
-  `;
-
-    album.appendChild(albumItem);
-  }
+  language.classList.add('bold-text');
+  language.textContent = 'Language: ' + receivedSong.language;
+  songInfoWrapper.appendChild(language);
 
   let mediaLinks;
 
   if (receivedSong.media) {
     mediaLinks = document.createElement('div');
+    mediaLinks.classList.add('media-links');
     const mediaLinksTitle = document.createElement('h2');
     mediaLinksTitle.textContent = 'Media';
     mediaLinks.append(mediaLinksTitle);
     for (let i = 0; i < receivedSong.media.length; i++) {
       const link = document.createElement('a');
+      link.classList.add('media-links__item');
       link.href = receivedSong.media[i].url;
       link.setAttribute('target', '_blank');
       link.innerText = 'Link ' + (i + 1);
@@ -91,63 +101,95 @@ export const renderSong = (data) => {
     }
   }
 
-  const producerArtists = document.createElement('div');
+  let middlePart;
 
-  const producerArtistsTitle = document.createElement('h2');
-  producerArtistsTitle.textContent = 'Producer Artists';
-  producerArtists.append(producerArtistsTitle);
-  for (const producer of receivedSong.producer_artists) {
-    const producerItem = document.createElement('a');
-    producerItem.href = producer.url;
-    producerItem.setAttribute('target', '_blank');
-    producerItem.innerHTML = `<img src="${producer.image_url}"/>
-  <h3>${producer.name}</h3>
-  <div>`;
-    producerArtists.appendChild(producerItem);
+  let featuredArtists;
+  if (
+    receivedSong.featured_artists &&
+    receivedSong.featured_artists.length > 0
+  ) {
+    middlePart = document.createElement('div');
+    middlePart.classList.add('song-middle');
+
+    featuredArtists = createArtistSection(
+      'Featured Artists',
+      receivedSong.featured_artists
+    );
+
+    middlePart.appendChild(featuredArtists);
   }
 
-  let releaseDate;
-  if (receivedSong.release_date_for_display) {
-    releaseDate = document.createElement('div');
-    releaseDate.innerHTML =
-      '<span>Release date:</span> ' + receivedSong.release_date_for_display;
+  let album;
+  if (receivedSong.album) {
+    if (!middlePart) {
+      middlePart = document.createElement('div');
+      middlePart.classList.add('song-middle');
+    }
+
+    album = document.createElement('div');
+    album.classList.add('album');
+
+    const albumPart = document.createElement('div');
+    albumPart.classList.add('album-part');
+
+    const albumTitle = document.createElement('h2');
+    albumTitle.textContent = 'Album';
+    albumTitle.classList.add('album-section__title', 'section-title');
+
+    const albumItem = document.createElement('a');
+    albumItem.classList.add('album-item');
+    albumItem.setAttribute('target', '_blank');
+    albumItem.href = 'https://genius.com/albums/Sanah/Uczta';
+    albumItem.innerHTML = `<img class="album-item__img" src="${receivedSong.album.cover_art_url}"/>
+    <div class="album-item__title-wrapper"><h3 class="album-item__title">${receivedSong.album.name}</h3></div>
+    `;
+
+    const artistPart = document.createElement('div');
+    artistPart.classList.add('artist-part');
+    artistPart.innerHTML = `<h2 class="artist-part__title section-title">Artist</h2>
+    <a class="artist-part__item" target="_blank" href="${receivedSong.album.artist.url}">
+     <img class="artist-part__item-img" src="${receivedSong.album.artist.image_url}"/>
+     <h3 class="artist-part__item-name">${receivedSong.album.artist.name}</h3>
+     </a>`;
+
+    albumPart.append(albumTitle);
+    albumPart.appendChild(albumItem);
+
+    album.appendChild(albumPart);
+    album.appendChild(artistPart);
+
+    middlePart.appendChild(album);
   }
 
-  const writerArtists = document.createElement('div');
+  const artistsWrapper = document.createElement('div');
+  artistsWrapper.classList.add('artists-wrapper');
 
-  const writerArtistsTitle = document.createElement('h2');
-  writerArtistsTitle.textContent = 'Writer Artists';
-  writerArtists.append(writerArtistsTitle);
-  for (const writer of receivedSong.writer_artists) {
-    const writerItem = document.createElement('a');
-    writerItem.href = writer.url;
-    writerItem.setAttribute('target', '_blank');
-    writerItem.innerHTML = `<img src="${writer.image_url}"/>
-  <h3>${writer.name}</h3>
-  <div>`;
-    writerArtists.appendChild(writerItem);
-  }
+  const producerArtists = createArtistSection(
+    'Producer Artists',
+    receivedSong.producer_artists
+  );
+  const writerArtists = createArtistSection(
+    'Writer Artists',
+    receivedSong.writer_artists
+  );
 
-  container.appendChild(title);
-  container.appendChild(artistNames);
-  container.appendChild(songImage);
-  container.appendChild(primaryArtists);
-  container.appendChild(featuredArtists);
-  container.appendChild(language);
+  writerArtists.classList.add('writer-artists');
 
-  if (album) {
-    container.appendChild(album);
-  }
+  artistsWrapper.appendChild(producerArtists);
+  artistsWrapper.appendChild(writerArtists);
+
+  workingArea.appendChild(title);
+  workingArea.appendChild(artistNames);
+  workingArea.appendChild(topPart);
+  workingArea.appendChild(songInfoWrapper);
 
   if (mediaLinks) {
-    container.appendChild(mediaLinks);
+    workingArea.appendChild(mediaLinks);
   }
 
-  container.appendChild(producerArtists);
-
-  if (releaseDate) {
-    container.appendChild(releaseDate);
+  if (middlePart) {
+    workingArea.appendChild(middlePart);
   }
 
-  container.appendChild(writerArtists);
+  workingArea.appendChild(artistsWrapper);
 };

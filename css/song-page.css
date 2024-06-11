@@ -1,0 +1,145 @@
+.song-title,
+.artist-names {
+  text-align: center;
+}
+
+.song-title {
+}
+
+.artist-names {
+  padding-bottom: 10px;
+}
+
+.song-image__wrapper {
+  width: 600px;
+  height: 600px;
+  flex-shrink: 0;
+}
+
+.song-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.song-top {
+  display: flex;
+  align-items: center;
+
+  gap: 50px;
+}
+
+.primary-artists__list {
+  flex-shrink: 0;
+}
+
+.section {
+  width: max-content;
+}
+
+.section.primary-artists__list {
+  flex-grow: 1;
+}
+
+.section-inner {
+  display: flex;
+  gap: 25px;
+}
+
+.section-inner.primary-artists {
+  max-width: 825px;
+  width: 100%;
+  overflow-x: auto;
+  justify-content: center;
+}
+
+.section-title {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.artist-item {
+  flex-shrink: 0;
+  width: 400px;
+  height: 100%;
+  padding-bottom: 20px;
+  text-decoration: none;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.artist-item__img {
+  width: 100%;
+  height: 100%;
+  padding-bottom: 10px;
+}
+
+.artist-item__name {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.featured-artists {
+  max-width: 400px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.bold-text {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+.song-info__wrapper {
+  display: flex;
+  gap: 25px;
+  padding: 15px 0;
+}
+
+.song-middle {
+  display: flex;
+  justify-content: space-between;
+}
+
+.album {
+  display: flex;
+  gap: 20px;
+}
+
+.album-part,
+.artist-part {
+  max-width: 400px;
+  width: 100%;
+}
+
+.album-item__img,
+.artist-part__item-img {
+  padding-bottom: 10px;
+}
+
+.album-section__title,
+.artist-part__title,
+.album-item__title,
+.artist-part__item-name {
+  text-align: center;
+}
+
+.media-links {
+  padding-bottom: 15px;
+}
+
+.media-links__item {
+  text-decoration: underline;
+}
+
+.artists-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.writer-artists {
+  max-width: 825px;
+  width: 100%;
+  overflow-x: auto;
+}
