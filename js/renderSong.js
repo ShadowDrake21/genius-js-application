@@ -1,6 +1,10 @@
+import { getArtist } from './api.js';
+
 export const renderSong = (data) => {
   const receivedSong = data.response.song;
   const workingArea = document.querySelector('#workingArea');
+
+  workingArea.innerHTML = '';
   console.log('data', receivedSong);
 
   const createArtistSection = (titleText, artists) => {
@@ -16,9 +20,9 @@ export const renderSong = (data) => {
     sectionInner.classList.add('section-inner', artistsIndividualClass);
 
     artists.forEach((artist) => {
-      const artistDiv = document.createElement('a');
+      const artistDiv = document.createElement('div');
       artistDiv.classList.add('artist-item');
-      artistDiv.href = artist.url;
+
       artistDiv.setAttribute('target', '_blank');
       const artistImage = document.createElement('img');
       artistImage.src = artist.image_url;
@@ -27,6 +31,10 @@ export const renderSong = (data) => {
       artistName.innerText = artist.name;
       artistName.classList.add('artist-item__name');
       artistDiv.append(artistImage, artistName);
+
+      artistDiv.addEventListener('click', (event) => {
+        getArtist(artist.id);
+      });
       sectionInner.appendChild(artistDiv);
     });
 
@@ -77,10 +85,13 @@ export const renderSong = (data) => {
     songInfoWrapper.appendChild(releaseDate);
   }
 
-  const language = document.createElement('p');
-  language.classList.add('bold-text');
-  language.textContent = 'Language: ' + receivedSong.language;
-  songInfoWrapper.appendChild(language);
+  let language;
+  if (receivedSong.language) {
+    language = document.createElement('p');
+    language.classList.add('bold-text');
+    language.textContent = 'Language: ' + receivedSong.language;
+    songInfoWrapper.appendChild(language);
+  }
 
   let mediaLinks;
 
@@ -173,6 +184,7 @@ export const renderSong = (data) => {
     receivedSong.writer_artists
   );
 
+  producerArtists.classList.add('producer-artists');
   writerArtists.classList.add('writer-artists');
 
   artistsWrapper.appendChild(producerArtists);
