@@ -86,8 +86,6 @@
 }
 
 .bold-text {
-  font-size: 16px;
-  line-height: 20px;
   font-weight: 600;
 }
 
@@ -109,6 +107,7 @@
 
 .album-part,
 .artist-part {
+  cursor: pointer;
   max-width: 400px;
   width: 100%;
 }
@@ -156,5 +155,3 @@
   align-items: center;
   gap: 40px;
 }
-
-/* loading + responsive */

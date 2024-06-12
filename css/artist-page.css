@@ -4,6 +4,12 @@
   padding-bottom: 40px;
 }
 
+.single-artist-link {
+  font-size: 20px;
+  line-height: 24px;
+  margin-bottom: 15px;
+}
+
 .single-artist-image__wrapper {
   flex-shrink: 0;
   width: 500px;

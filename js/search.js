@@ -1,8 +1,16 @@
 import { search } from './api.js';
-import { clearPlayground, createHomeBtn, createSingleSong } from './utils.js';
+import {
+  clearPlayground,
+  createHomeBtn,
+  createLoader,
+  createSingleSong,
+} from './utils.js';
 
 export const renderSearch = async (searchTerm) => {
   const workingArea = clearPlayground();
+
+  const loader = createLoader();
+  workingArea.appendChild(loader);
 
   const searchSection = document.createElement('div');
   searchSection.classList.add('category-section');
@@ -38,5 +46,8 @@ export const renderSearch = async (searchTerm) => {
 
   searchSection.appendChild(searchList);
 
-  workingArea.appendChild(searchSection);
+  setTimeout(() => {
+    workingArea.removeChild(loader);
+    workingArea.appendChild(searchSection);
+  }, 2000);
 };
