@@ -1,4 +1,6 @@
 @import url('./reset.css');
 @import url('./common.css');
+@import url('./first-page.css');
 @import url('./song-page.css');
 @import url('./artist-page.css');
+@import url('./search.css');

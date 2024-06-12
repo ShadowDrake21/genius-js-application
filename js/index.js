@@ -1,6 +1,15 @@
-import { CLIENT_ACCESS_TOKEN } from '../environment.js';
-import { getArtist, getArtistSongs, getSong, search } from './api.js';
+import { renderFirstPage } from './renderFirstPage.js';
+import { renderSearch } from './search.js';
 
-// search('ostatnia umiera nadzieja');
-getSong(7904735);
-// getArtist(1855497);
+renderFirstPage();
+
+document.querySelector('#searchForm').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const searchInput = document.querySelector('#searchForm input[type="text"]');
+
+  const searchTerm = searchInput.value;
+
+  renderSearch(searchTerm);
+
+  searchInput.value = '';
+});

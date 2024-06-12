@@ -58,8 +58,9 @@
 .artist-item {
   flex-shrink: 0;
   width: 400px;
-  height: 100%;
-  padding-bottom: 20px;
+  max-height: 450px;
+
+  padding-bottom: 40px;
   text-decoration: none;
   text-align: center;
   text-transform: capitalize;
@@ -70,6 +71,7 @@
   width: 100%;
   height: 100%;
   padding-bottom: 10px;
+  object-fit: cover;
 }
 
 .artist-item__name {
@@ -147,3 +149,12 @@
   width: 100%;
   overflow-x: auto;
 }
+
+.song-top__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+/* loading + responsive */

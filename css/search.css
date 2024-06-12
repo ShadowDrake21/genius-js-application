@@ -1,0 +1,13 @@
+.search-title__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  padding-bottom: 15px;
+}
+
+.search__title {
+  font-size: 26px;
+  line-height: 30px;
+  text-align: center;
+}

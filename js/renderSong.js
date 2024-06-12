@@ -1,11 +1,10 @@
-import { getArtist } from './api.js';
+import { getArtist, getSong } from './api.js';
+import { clearPlayground, createHomeBtn } from './utils.js';
 
 export const renderSong = (data) => {
   const receivedSong = data.response.song;
-  const workingArea = document.querySelector('#workingArea');
 
-  workingArea.innerHTML = '';
-  console.log('data', receivedSong);
+  const workingArea = clearPlayground();
 
   const createArtistSection = (titleText, artists) => {
     const section = document.createElement('div');
@@ -43,6 +42,12 @@ export const renderSong = (data) => {
     return section;
   };
 
+  const topWrapper = document.createElement('div');
+  topWrapper.classList.add('song-top__wrapper');
+
+  const titleWrapper = document.createElement('div');
+  titleWrapper.classList.add('song-title__wrapper');
+
   const title = document.createElement('h1');
   title.classList.add('song-title');
   title.textContent = receivedSong.title;
@@ -50,6 +55,14 @@ export const renderSong = (data) => {
   const artistNames = document.createElement('p');
   artistNames.classList.add('artist-names', 'bold-text');
   artistNames.textContent = 'By ' + receivedSong.artist_names;
+
+  titleWrapper.appendChild(title);
+  titleWrapper.appendChild(artistNames);
+
+  const homeBtn = createHomeBtn();
+
+  topWrapper.appendChild(titleWrapper);
+  topWrapper.appendChild(homeBtn);
 
   const topPart = document.createElement('div');
   topPart.classList.add('song-top');
@@ -80,7 +93,7 @@ export const renderSong = (data) => {
     releaseDate = document.createElement('p');
     releaseDate.classList.add('bold-text');
     releaseDate.innerHTML =
-      'Release date:' + receivedSong.release_date_for_display;
+      'Release date: ' + receivedSong.release_date_for_display;
 
     songInfoWrapper.appendChild(releaseDate);
   }
@@ -150,7 +163,7 @@ export const renderSong = (data) => {
     const albumItem = document.createElement('a');
     albumItem.classList.add('album-item');
     albumItem.setAttribute('target', '_blank');
-    albumItem.href = 'https://genius.com/albums/Sanah/Uczta';
+    albumItem.href = receivedSong.album.url;
     albumItem.innerHTML = `<img class="album-item__img" src="${receivedSong.album.cover_art_url}"/>
     <div class="album-item__title-wrapper"><h3 class="album-item__title">${receivedSong.album.name}</h3></div>
     `;
@@ -158,10 +171,14 @@ export const renderSong = (data) => {
     const artistPart = document.createElement('div');
     artistPart.classList.add('artist-part');
     artistPart.innerHTML = `<h2 class="artist-part__title section-title">Artist</h2>
-    <a class="artist-part__item" target="_blank" href="${receivedSong.album.artist.url}">
+    <div class="artist-part__item">
      <img class="artist-part__item-img" src="${receivedSong.album.artist.image_url}"/>
      <h3 class="artist-part__item-name">${receivedSong.album.artist.name}</h3>
-     </a>`;
+     </div>`;
+
+    artistPart.addEventListener('click', () =>
+      getArtist(receivedSong.album.artist.id)
+    );
 
     albumPart.append(albumTitle);
     albumPart.appendChild(albumItem);
@@ -172,26 +189,33 @@ export const renderSong = (data) => {
     middlePart.appendChild(album);
   }
 
-  const artistsWrapper = document.createElement('div');
-  artistsWrapper.classList.add('artists-wrapper');
+  let artistsWrapper;
+  if (receivedSong.producer_artists || receivedSong.writer_artists) {
+    artistsWrapper = document.createElement('div');
+    artistsWrapper.classList.add('artists-wrapper');
+  }
 
-  const producerArtists = createArtistSection(
-    'Producer Artists',
-    receivedSong.producer_artists
-  );
-  const writerArtists = createArtistSection(
-    'Writer Artists',
-    receivedSong.writer_artists
-  );
+  let producerArtists;
+  if (receivedSong.producer_artists) {
+    producerArtists = createArtistSection(
+      'Producer Artists',
+      receivedSong.producer_artists
+    );
+    producerArtists.classList.add('producer-artists');
+    artistsWrapper.appendChild(producerArtists);
+  }
 
-  producerArtists.classList.add('producer-artists');
-  writerArtists.classList.add('writer-artists');
+  let writerArtists;
+  if (writerArtists) {
+    writerArtists = createArtistSection(
+      'Writer Artists',
+      receivedSong.writer_artists
+    );
+    writerArtists.classList.add('writer-artists');
+    artistsWrapper.appendChild(writerArtists);
+  }
 
-  artistsWrapper.appendChild(producerArtists);
-  artistsWrapper.appendChild(writerArtists);
-
-  workingArea.appendChild(title);
-  workingArea.appendChild(artistNames);
+  workingArea.appendChild(topWrapper);
   workingArea.appendChild(topPart);
   workingArea.appendChild(songInfoWrapper);
 
@@ -203,5 +227,7 @@ export const renderSong = (data) => {
     workingArea.appendChild(middlePart);
   }
 
-  workingArea.appendChild(artistsWrapper);
+  if (artistsWrapper) {
+    workingArea.appendChild(artistsWrapper);
+  }
 };
