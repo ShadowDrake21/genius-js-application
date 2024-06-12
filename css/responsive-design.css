@@ -1,0 +1,168 @@
+@media (max-width: 1300px) {
+  .section-inner {
+    gap: 10px;
+  }
+  .writer-artists {
+    max-width: 610px;
+  }
+
+  .album {
+    gap: 10px;
+  }
+
+  .album-part,
+  .artist-part,
+  .artist-item {
+    width: 300px;
+  }
+
+  .song-image__wrapper {
+    width: 500px;
+    height: 500px;
+  }
+
+  .producer-artists {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .song-top__wrapper {
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 20px;
+  }
+
+  .song-top {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .song-info__wrapper {
+    justify-content: center;
+  }
+
+  .media-links {
+    text-align: center;
+  }
+
+  .song-middle {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .album {
+    padding-bottom: 50px;
+  }
+
+  .artists-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .single-artist-image__wrapper {
+    width: 400px;
+    height: 400px;
+  }
+
+  .single-artist-part {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    gap: 10px;
+    padding-bottom: 25px;
+  }
+
+  .single-artist-content .home-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  body {
+    padding-top: 190px;
+  }
+
+  .album {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .writer-artists {
+    max-width: 300px;
+  }
+
+  .song-image__wrapper {
+    width: 350px;
+    height: 350px;
+  }
+
+  .search-title__wrapper {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+
+  h2 {
+    font-size: 1.25em;
+  }
+
+  h3 {
+    font-size: 1em;
+  }
+
+  .single-artist-alternative__names {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .songs-list__title {
+    font-size: 22px;
+    line-height: 26px;
+    padding-bottom: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  body {
+    padding-bottom: 100px;
+  }
+  .header-title {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .header-subtitle {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .song-image__wrapper {
+    width: 300px;
+    height: 300px;
+  }
+
+  .song-info__wrapper {
+    padding: 0;
+  }
+
+  .album {
+    padding-bottom: 40px;
+  }
+
+  .song-info__wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 15px;
+  }
+
+  .single-artist-image__wrapper {
+    width: 300px;
+    height: 300px;
+  }
+}
