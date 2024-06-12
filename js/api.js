@@ -51,18 +51,30 @@ export const getArtistSongs = async (id, numberOfSongs = 10) => {
   }
 };
 
-export const search = async (artist) => {
+export const search = async (searchTerm, page = 1) => {
   try {
-    fetch(
-      `http://api.genius.com/search?q=${artist}&access_token=${CLIENT_ACCESS_TOKEN}`
+    return fetch(
+      `${GENIUS_BASE_URL}search?q=${searchTerm}&access_token=${CLIENT_ACCESS_TOKEN}&page=${page}`
     )
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        return data;
       });
   } catch (err) {
     console.log(err.toJSON());
+  }
+};
+
+export const getRandomSong = async (searchTerm) => {
+  try {
+    const pageNumber = Math.floor(Math.random() * 10) + 1;
+    const randomSongs = await search(searchTerm, pageNumber);
+
+    return randomSongs;
+  } catch (error) {
+    console.error('Error retrieving random song: ', error.message);
+    return Promise.resolve();
   }
 };

@@ -106,3 +106,9 @@
   text-align: center;
   padding-bottom: 15px;
 }
+
+.single-artist-name__wrapper {
+  display: flex;
+  align-content: center;
+  gap: 40px;
+}

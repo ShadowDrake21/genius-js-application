@@ -5,7 +5,32 @@
 }
 
 body {
-  padding: 40px 0;
   background-color: #fff2d7;
   color: #000000;
+}
+
+.header {
+  padding: 20px 15px;
+  text-align: center;
+  background-color: #ffe0a1;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.header-top {
+  padding-bottom: 10px;
+}
+
+.footer {
+  background-color: #ffe0a1;
+  padding: 15px 10px;
+  margin-top: 20px;
+}
+
+.footer-text {
+  text-align: center;
+}
+
+.home-btn {
+  display: block;
 }

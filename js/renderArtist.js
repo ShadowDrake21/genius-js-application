@@ -1,13 +1,13 @@
 import { getSong } from './api.js';
+import { clearPlayground, createHomeBtn } from './utils.js';
 
 export const renderArtist = (artistData, songsData) => {
   console.log('artist data', artistData);
   console.log('songs data', songsData);
 
   const artist = artistData.response.artist;
-  const workingArea = document.querySelector('#workingArea');
 
-  workingArea.innerHTML = '';
+  const workingArea = clearPlayground();
 
   // artist
   const artistPart = document.createElement('div');
@@ -68,6 +68,8 @@ export const renderArtist = (artistData, songsData) => {
   geniusLink.href = artist.url;
   geniusLink.textContent = `${artist.name} on Genius`;
 
+  const homeBtn = createHomeBtn();
+
   artistContent.appendChild(artistName);
 
   if (artistAlternativeNames) {
@@ -79,6 +81,8 @@ export const renderArtist = (artistData, songsData) => {
   }
 
   artistContent.appendChild(geniusLink);
+
+  artistContent.appendChild(homeBtn);
 
   artistPart.appendChild(artistImageWrapper);
   artistPart.appendChild(artistContent);
