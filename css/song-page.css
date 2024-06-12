@@ -71,7 +71,7 @@
   width: 100%;
   height: 100%;
   padding-bottom: 10px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .artist-item__name {
@@ -110,6 +110,7 @@
   cursor: pointer;
   max-width: 400px;
   width: 100%;
+  height: 100%;
 }
 
 .album-item__img,
