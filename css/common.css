@@ -1,0 +1,90 @@
+body {
+  position: relative;
+  background-color: #fff2d7;
+  color: #000000;
+  min-height: 100vh;
+  padding-top: 165px;
+  padding-bottom: 75px;
+}
+
+.container {
+  max-width: 1520px;
+  height: 100%;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 20px 15px;
+  text-align: center;
+  background-color: #ffe0a1;
+  color: #000;
+}
+
+.header-top {
+  padding-bottom: 10px;
+}
+
+.header-title {
+  padding-bottom: 5px;
+}
+
+.footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background-color: #ffe0a1;
+  padding: 15px 10px;
+  margin-top: 20px;
+}
+
+.footer-text {
+  text-align: center;
+}
+
+.home-btn {
+  display: block;
+}
+
+.home-btn__wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 20px;
+  -webkit-mask: linear-gradient(90deg, #000 70%, #0000 0) 0/20%;
+  background: linear-gradient(#000 0 0) 0/0% no-repeat #ddd;
+  animation: l4 2s infinite steps(6);
+}
+@keyframes l4 {
+  100% {
+    background-size: 120%;
+  }
+}
+
+.error-message__wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.error-message {
+  font-size: 20px;
+  line-height: 24px;
+  width: 100%;
+  text-align: center;
+}

@@ -1,26 +1,15 @@
-import { CLIENT_ACCESS_TOKEN } from '../environment.js';
+import { renderFirstPage } from './renderFirstPage.js';
+import { renderSearch } from './search.js';
 
-async function getLyrics(artist) {
-  // const searchUrl = `http://api.genius.com/search?q=${artist}&access_token=${CLIENT_ACCESS_TOKEN}`;
-  const searchUrl = `http://api.genius.com/songs/${artist}?access_token=${CLIENT_ACCESS_TOKEN}`;
+renderFirstPage();
 
-  try {
-    fetch(searchUrl)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-      });
-  } catch (err) {
-    console.log(err.toJSON());
-  }
-}
+document.querySelector('#searchForm').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const searchInput = document.querySelector('#searchForm input[type="text"]');
 
-const init = (artist) => {
-  getLyrics(artist).then((value) => {
-    console.log(value);
-  });
-};
+  const searchTerm = searchInput.value;
 
-init('7022998');
+  renderSearch(searchTerm);
+
+  searchInput.value = '';
+});
