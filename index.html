@@ -7,7 +7,38 @@
     <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
-    <div id="main-container"></div>
+    <header class="header">
+      <div class="header-top">
+        <h2 class="header-title">
+          JavaScript music documentation app powered by Genius
+        </h2>
+        <h3 class="header-subtitle">
+          Made by
+          <a
+            class="header-subtitle__link"
+            href="https://github.com/ShadowDrake21"
+            target="_blank"
+            >Drake21</a
+          >
+        </h3>
+      </div>
+      <form id="searchForm" class="header-bottom">
+        <input type="text" placeholder="Enter a search term..." />
+        <button type="submit">Search</button>
+      </form>
+    </header>
+    <div class="container" id="workingArea"></div>
+    <footer class="footer">
+      <p class="footer-text">
+        <a
+          class="header-subtitle__link"
+          href="https://github.com/ShadowDrake21"
+          target="_blank"
+          >© 2024 Dmytro (Dmitrii) Krapyvianskiy a.k.a Drake21 | All rights
+          reserved</a
+        >
+      </p>
+    </footer>
     <script type="module" src="./js/index.js"></script>
   </body>
 </html>
