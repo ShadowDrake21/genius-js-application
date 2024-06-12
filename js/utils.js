@@ -48,3 +48,38 @@ export function createHomeBtn() {
 
   return homeBtn;
 }
+
+export function createLoader() {
+  const loader = document.createElement('div');
+  loader.classList.add('loader');
+
+  return loader;
+}
+
+export function createErrorMessage(error) {
+  const errorMessage = document.createElement('p');
+  errorMessage.classList.add('error-message', 'bold-text');
+  errorMessage.textContent = 'Error retrieving random songs: ' + error;
+
+  return errorMessage;
+}
+
+export function createError(error) {
+  const errorMessageWrapper = document.createElement('div');
+  errorMessageWrapper.classList.add('error-message__wrapper');
+
+  const errorMessage = document.createElement('p');
+  errorMessage.classList.add('error-message', 'bold-text');
+  errorMessage.textContent = 'Error retrieving random songs: ' + error;
+
+  const homeBtnWrapper = document.createElement('div');
+  homeBtnWrapper.classList.add('home-btn__wrapper');
+  const homeBtn = createHomeBtn();
+
+  homeBtnWrapper.appendChild(homeBtn);
+
+  errorMessageWrapper.appendChild(errorMessage);
+  errorMessageWrapper.appendChild(homeBtnWrapper);
+
+  return errorMessageWrapper;
+}
