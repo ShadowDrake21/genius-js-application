@@ -11,7 +11,6 @@ export const getSong = async (id) => {
       })
       .then((data) => {
         renderSong(data);
-        console.log(data);
       });
   } catch (err) {
     console.log(err.toJSON());
