@@ -1,1 +1,1 @@
-export const GENIUS_BASE_URL = 'http://api.genius.com/';
+export const GENIUS_BASE_URL = 'https://api.genius.com/';
