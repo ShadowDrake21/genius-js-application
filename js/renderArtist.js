@@ -7,9 +7,6 @@ import {
 } from './utils.js';
 
 export const renderArtist = (artistData, songsData) => {
-  console.log('artist data', artistData);
-  console.log('songs data', songsData);
-
   const workingArea = clearPlayground();
 
   const loader = createLoader();
@@ -17,7 +14,7 @@ export const renderArtist = (artistData, songsData) => {
 
   try {
     const artist = artistData.response.artist;
-    // artist
+
     const artistPart = document.createElement('div');
     artistPart.classList.add('single-artist-part');
 

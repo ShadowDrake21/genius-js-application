@@ -1,8 +1,7 @@
-import { getArtist, getSong } from './api.js';
+import { getArtist } from './api.js';
 import {
   clearPlayground,
   createError,
-  createErrorMessage,
   createHomeBtn,
   createLoader,
 } from './utils.js';
