@@ -1,3 +1,5 @@
+## Genius application in JS
+
 # Quick tutorial
 
 ![Quick tutorial](https://raw.githubusercontent.com/ShadowDrake21/genius-js-application/main/readme-gif.gif)
